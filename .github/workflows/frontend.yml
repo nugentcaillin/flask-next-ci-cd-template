@@ -12,10 +12,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+
+      - name: debug user
+        run: echo "User is ${{ vars.DOCKERHUB_USERNAME }}"
+
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Set up QEMU
@@ -30,4 +34,4 @@ jobs:
           context: ./frontend 
           file: ./frontend/Dockerfile
           push: true
-          tags: ${{ vars.IMAGE_USER }}/${{ vars.FRONTEND_IMAGE_NAME }}:latest
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/${{ vars.FRONTEND_IMAGE_NAME }}:latest
