@@ -34,7 +34,9 @@ jobs:
           context: ./frontend 
           file: ./frontend/Dockerfile
           push: true
-          tags: ${{ vars.DOCKERHUB_USERNAME }}/${{ vars.FRONTEND_IMAGE_NAME }}:${{ github.sha }}
+          tags: | 
+            ${{ vars.DOCKERHUB_USERNAME }}/${{ vars.FRONTEND_IMAGE_NAME }}:${{ github.sha }}
+            ${{ vars.DOCKERHUB_USERNAME }}/${{ vars.FRONTEND_IMAGE_NAME }}:latest
 
       - name: Request update on server
         uses: peter-evans/repository-dispatch@v4
